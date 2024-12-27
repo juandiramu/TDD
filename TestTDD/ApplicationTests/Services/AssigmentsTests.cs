@@ -25,6 +25,18 @@ public class AssigmentsTests
 	}
 
 	[Fact]
+	public void CreateAssigments_ShouldGenerateUniqueIds()
+	{
+		// Arrange & Act
+		Assigment assigment1 = Assigment.Create("Task 1", "Description 1");
+		Assigment assigment2 = Assigment.Create("Task 2", "Description 2");
+
+		// Assert
+		Assert.NotEqual(assigment1.Id, assigment2.Id);
+	}
+
+
+	[Fact]
 	public void CreateAssigment_WithNotEmptyId_ShouldSaveCorrectly()
 	{
 		//Arrange & Act
@@ -43,6 +55,16 @@ public class AssigmentsTests
 		Assert.Equal(AssigmentsConstants.ERROR_CODE_500, exception.ErrorCode); 
 		Assert.Equal(string.Format(AssigmentsMessages.NotNullProperty, nameof(Assigment.Name)), exception.Message);
 	}
+
+	[Fact]
+	public void CreateAssigment_WithEmptyDescription_ShouldError()
+	{
+		// Act & Assert
+		var exception = Assert.Throws<AssigmentException>(() => AssigmentsValidations.ValidateNotNullOrEmpty(string.Empty, nameof(Assigment.Description)));
+		Assert.Equal(AssigmentsConstants.ERROR_CODE_500, exception.ErrorCode);
+		Assert.Equal(string.Format(AssigmentsMessages.NotNullProperty, nameof(Assigment.Description)), exception.Message);
+	}
+
 
 	[Fact]
 	public void GetAllAssigments_WhenTasksExist_ShouldReturnAllTasks()
@@ -88,5 +110,90 @@ public class AssigmentsTests
 		Assert.Equal(AssigmentsConstants.ERROR_CODE_404, exception.ErrorCode);
 		Assert.Equal(AssigmentsMessages.TaskNotFoundByName, exception.Message);
 	}
+	[Fact]
+	public void GetAllAssigments_WhenNoTasksExist_ShouldReturnEmptyList()
+	{
+		// Arrange
+		AssigmentManager assigmantManager = new AssigmentManager();
+
+		// Act
+		var tasks = assigmantManager.GetAssigments();
+
+		// Assert
+		Assert.NotNull(tasks);
+		Assert.Empty(tasks);
+	}
+
+	[Fact]
+	public void UpdateAssigment_WhenTaskExists_ShouldUpdateDetails()
+	{
+		// Arrange
+		AssigmentManager assigmantManager = new();
+		var createdTask = assigmantManager.CreateAssigment("Task 1", "Description 1");
+
+		// Act
+		var updatedTask = new Assigment
+		{
+			Id = createdTask.Id,
+			Name = "Updated Task",
+			Description = "Updated Description",
+			State = AssigmentState.InProgress
+		};
+		var result = assigmantManager.UpdateAssigment(updatedTask);
+
+		// Assert
+		Assert.NotNull(result);
+		Assert.Equal("Updated Task", result.Name);
+		Assert.Equal("Updated Description", result.Description);
+		Assert.Equal(AssigmentState.InProgress, result.State);
+	}
+
+	[Fact]
+	public void UpdateAssigment_WhenTaskDoesNotExist_ShouldThrowException()
+	{
+		// Arrange
+		AssigmentManager assigmantManager = new();
+		var nonExistentTask = new Assigment
+		{
+			Id = Guid.NewGuid(),
+			Name = "Nonexistent Task",
+			Description = "Nonexistent Description",
+			State = AssigmentState.ToDo
+		};
+
+		// Act & Assert
+		var exception = Assert.Throws<AssigmentException>(() => assigmantManager.UpdateAssigment(nonExistentTask));
+		Assert.Equal(AssigmentsConstants.ERROR_CODE_404, exception.ErrorCode);
+		Assert.Equal(AssigmentsMessages.TaskNotFound, exception.Message);
+	}
+
+	[Fact]
+	public void DeleteAssigment_WhenTaskExists_ShouldRemoveTask()
+	{
+		// Arrange
+		AssigmentManager assigmantManager = new();
+		var createdTask = assigmantManager.CreateAssigment("Task 1", "Description 1");
+
+		// Act
+		assigmantManager.DeleteAssigment(createdTask.Id);
+
+		// Assert
+		var tasks = assigmantManager.GetAssigments();
+		Assert.Empty(tasks);
+	}
+
+	[Fact]
+	public void DeleteAssigment_WhenTaskDoesNotExist_ShouldThrowException()
+	{
+		// Arrange
+		AssigmentManager assigmantManager = new();
+		var nonExistentId = Guid.NewGuid();
+
+		// Act & Assert
+		var exception = Assert.Throws<AssigmentException>(() => assigmantManager.DeleteAssigment(nonExistentId));
+		Assert.Equal(AssigmentsConstants.ERROR_CODE_404, exception.ErrorCode);
+		Assert.Equal(string.Format(AssigmentsMessages.TaskNotFound, nonExistentId), exception.Message);
+	}
+
 
 }

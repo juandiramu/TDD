@@ -70,6 +70,15 @@ namespace TestTDD.ApplicationTests.Services._Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No se encontró la tarea con este id.
+        /// </summary>
+        internal static string TaskNotFound {
+            get {
+                return ResourceManager.GetString("TaskNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No se encontró ninguna tarea con ese nombre.
         /// </summary>
         internal static string TaskNotFoundByName {

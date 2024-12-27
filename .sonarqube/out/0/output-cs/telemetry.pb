@@ -1,0 +1,1 @@
+KR5C:\Users\Asus\Desktop\Reto\TDD\TestTDD\TestTDD.csproj¢net6.0òCSharp10

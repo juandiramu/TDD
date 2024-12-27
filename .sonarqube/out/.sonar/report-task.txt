@@ -1,0 +1,7 @@
+organization=juandiramu
+projectKey=juandiramu_TDD
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.58741
+dashboardUrl=https://sonarcloud.io/dashboard?id=juandiramu_TDD
+ceTaskId=AZQJEP_MgDr3kuHupgNA
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZQJEP_MgDr3kuHupgNA

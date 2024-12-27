@@ -120,6 +120,9 @@
   <data name="NotNullProperty" xml:space="preserve">
     <value>{0} no puede ser nulo o vacío.</value>
   </data>
+  <data name="TaskNotFound" xml:space="preserve">
+    <value>No se encontró la tarea con este id</value>
+  </data>
   <data name="TaskNotFoundByName" xml:space="preserve">
     <value>No se encontró ninguna tarea con ese nombre</value>
   </data>

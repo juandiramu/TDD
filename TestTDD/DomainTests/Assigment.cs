@@ -10,4 +10,11 @@ public class Assigment
 	public static Assigment Create(string name, string description)
 		 => new() { Id = Guid.NewGuid(), Name = name, Description = description, State = AssigmentState.ToDo };
 
+	public void Edit(string name, string description, AssigmentState state)
+	{
+		Name= name;
+		Description= description;
+		State = state;
+	}
+
 }

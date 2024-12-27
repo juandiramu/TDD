@@ -1,40 +1,54 @@
 ﻿using TestTDD.ApplicationTests.Services._Resources.Constants;
 using TestTDD.ApplicationTests.Services._Resources;
+using TestTDD.ApplicationTests.Services.Validations;
 
-namespace TestTDD.DomainTests
+namespace TestTDD.DomainTests;
+
+public class AssigmentManager
 {
-	public class AssigmentManager
+	private readonly List<Assigment> _assigments = new();
+
+	public Assigment CreateAssigment(string name, string description)
 	{
-		private readonly List<Assigment> _assigments = new();
+		var assigment = Assigment.Create(name, description);
+		_assigments.Add(assigment);
+		return assigment;
+	}
 
-		public Assigment CreateAssigment(string name, string description)
-		{
-			var assigment = Assigment.Create(name, description);
-			_assigments.Add(assigment);
-			return assigment;
-		}
-		public Assigment AddAssigment(Assigment assigment)
-		{
-			_assigments.Add(assigment);
-			return assigment;
-		}
+	public Assigment UpdateAssigment(Assigment assigment)
+	{
+		Assigment? editAssigment = _assigments.FirstOrDefault(it => it.Id == assigment.Id);
+		AssigmentsValidations.ValidateNotNullAssigment(editAssigment);
+		editAssigment.Edit(assigment.Name, assigment.Description, assigment.State);
+		return editAssigment;
+	}
+	public Assigment AddAssigment(Assigment assigment)
+	{
+		_assigments.Add(assigment);
+		return assigment;
+	}
 
-		public List<Assigment> GetAssigments()
-		{
-			return _assigments;
-		}
+	public List<Assigment> GetAssigments()
+	{
+		return _assigments;
+	}
 
-		public Assigment GetAssigmentByName(string name)
+	public Assigment GetAssigmentByName(string name)
+	{
+		Assigment? assigments = _assigments.FirstOrDefault(t => t.Name == name);
+		if (assigments == null)
 		{
-			Assigment? assigments = _assigments.FirstOrDefault(t => t.Name == name);
-			if (assigments == null)
-			{
-				throw new AssigmentException(AssigmentsMessages.TaskNotFoundByName,
-					AssigmentsConstants.ERROR_CODE_404
-				);
-			}
-			return assigments;
+			throw new AssigmentException(AssigmentsMessages.TaskNotFoundByName,
+				AssigmentsConstants.ERROR_CODE_404
+			);
 		}
+		return assigments;
+	}
+	public void DeleteAssigment(Guid id)
+	{
+		var task = _assigments.FirstOrDefault(t => t.Id == id);
+		AssigmentsValidations.ValidateNotNullAssigment(task);
+		_assigments.Remove(task);
 	}
 }
 

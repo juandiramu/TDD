@@ -93,9 +93,9 @@ C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\TestTDD.GeneratedMSBuild
 C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\TestTDD.AssemblyInfoInputs.cache
 C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\TestTDD.AssemblyInfo.cs
 C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\TestTDD.csproj.CoreCompileInputs.cache
-C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\TestTDD.csproj.CopyComplete
 C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\TestTDD.dll
 C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\refint\TestTDD.dll
 C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\TestTDD.pdb
 C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\TestTDD.genruntimeconfig.cache
 C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\ref\TestTDD.dll
+C:\Users\Asus\Desktop\Reto\TDD\TestTDD\obj\Debug\net6.0\TestTDD.csproj.CopyComplete
