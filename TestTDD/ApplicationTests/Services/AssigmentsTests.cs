@@ -153,13 +153,7 @@ public class AssigmentsTests
 	{
 		// Arrange
 		AssigmentManager assigmantManager = new();
-		var nonExistentTask = new Assigment
-		{
-			Id = Guid.NewGuid(),
-			Name = "Nonexistent Task",
-			Description = "Nonexistent Description",
-			State = AssigmentState.ToDo
-		};
+		var nonExistentTask = AssigmentTestModel.nonExistentTask;
 
 		// Act & Assert
 		var exception = Assert.Throws<AssigmentException>(() => assigmantManager.UpdateAssigment(nonExistentTask));

@@ -10,8 +10,15 @@ namespace TestTDD.ApplicationTests.Services._Resources.TestModels
 		public static readonly Assigment assigmentsImput2 = new() { Name = "Tarea2", Description = "Esta es la tarea2" };
 		public static readonly Assigment assigmentsImput3 = new() { Name = "Tarea3", Description = "Esta es la tarea3" };
 		public static readonly Assigment assigmentsImput4 = new() { Name = "Tarea4", Description = "Esta es la tarea4" };
+		public static readonly Assigment nonExistentTask = new ()
+		{
+			Id = Guid.NewGuid(),
+			Name = "Nonexistent Task",
+			Description = "Nonexistent Description",
+			State = AssigmentState.ToDo
+	};
 
-		public static AssigmentManager ReturnAssignments()
+	public static AssigmentManager ReturnAssignments()
 		{
 			assigments.AddAssigment(assigmentsImput);
 			assigments.AddAssigment(assigmentsImput2);

@@ -17,7 +17,7 @@ public class AssigmentManager
 
 	public Assigment UpdateAssigment(Assigment assigment)
 	{
-		Assigment? editAssigment = _assigments.FirstOrDefault(it => it.Id == assigment.Id);
+		Assigment editAssigment = _assigments.FirstOrDefault(it => it.Id == assigment.Id) ?? new();
 		AssigmentsValidations.ValidateNotNullAssigment(editAssigment);
 		editAssigment.Edit(assigment.Name, assigment.Description, assigment.State);
 		return editAssigment;
@@ -46,7 +46,7 @@ public class AssigmentManager
 	}
 	public void DeleteAssigment(Guid id)
 	{
-		var task = _assigments.FirstOrDefault(t => t.Id == id);
+		Assigment task = _assigments.FirstOrDefault(t => t.Id == id) ?? new();
 		AssigmentsValidations.ValidateNotNullAssigment(task);
 		_assigments.Remove(task);
 	}

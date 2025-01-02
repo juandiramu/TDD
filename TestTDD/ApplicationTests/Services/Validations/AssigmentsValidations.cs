@@ -16,7 +16,7 @@ namespace TestTDD.ApplicationTests.Services.Validations
 
 		public static void ValidateNotNullAssigment(Assigment? assigment)
 		{
-			if (assigment == null)
+			if (assigment == null || string.IsNullOrEmpty(assigment.Name))
 			{
 				throw new AssigmentException(AssigmentsMessages.TaskNotFound, AssigmentsConstants.ERROR_CODE_404);
 			}
